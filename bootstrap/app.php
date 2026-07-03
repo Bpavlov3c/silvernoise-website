@@ -13,6 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
+        $middleware->alias([
+            'admin.role'    => \App\Http\Middleware\AdminRoleMiddleware::class,
+            'seller.active' => \App\Http\Middleware\SellerActiveMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
