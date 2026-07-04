@@ -20,7 +20,15 @@ class LabelController extends Controller
             ->latest()
             ->paginate(25);
 
-        return response()->json($labels);
+        return response()->json([
+            'data' => $labels->items(),
+            'meta' => [
+                'current_page' => $labels->currentPage(),
+                'last_page'    => $labels->lastPage(),
+                'per_page'     => $labels->perPage(),
+                'total'        => $labels->total(),
+            ],
+        ]);
     }
 
     public function store(Request $request): JsonResponse
